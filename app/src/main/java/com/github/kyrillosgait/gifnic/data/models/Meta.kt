@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable @Parcelize
 data class Meta(
-    val msg: String,
-    val status: Int,
-    @SerialName("response_id") val responseId: String
+    val msg: String = "",
+    val status: Int = 0,
+    @SerialName("response_id") val responseId: String = ""
 ) : Parcelable
