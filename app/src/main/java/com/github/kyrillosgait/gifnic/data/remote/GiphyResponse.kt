@@ -10,6 +10,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GiphyResponse<T>(
     val data: T? = null,
-    val pagination: Pagination? = null,
-    val meta: Meta? = null
+    val pagination: Pagination = Pagination(),
+    val meta: Meta = Meta()
 )
