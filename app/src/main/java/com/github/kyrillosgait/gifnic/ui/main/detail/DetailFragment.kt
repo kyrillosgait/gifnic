@@ -32,13 +32,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun initImage() {
+        detailToolbar.title = safeArgs.gif.title
         detailAnimatedImageView.loadWebp(url = safeArgs.gif.images.fixedWidth.webp)
 
         viewModel.randomGif.observe(this, Observer {
             when (it) {
                 is State.Loading -> Unit
                 is State.Empty -> Unit
-                is State.Success -> detailAnimatedImageView.loadWebp(url = it.data.images.fixedWidth.webp)
+                is State.Success -> {
+                    detailToolbar.title = it.data.title
+                    detailAnimatedImageView.loadWebp(url = it.data.images.fixedWidth.webp)
+                }
                 is State.Error -> Unit
             }
         })
