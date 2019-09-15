@@ -8,9 +8,7 @@ import kotlinx.coroutines.launch
 
 private const val PAGE_SIZE = 20
 
-class GifsDataSource(
-    private val repository: GifRepository
-) : PageKeyedDataSource<Int, Gif>() {
+class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,
@@ -21,10 +19,10 @@ class GifsDataSource(
                 is Answer.Success -> {
                     callback.onResult(
                         response.value.data.orEmpty(),
-                        response.value.pagination?.offset ?: 0,
-                        response.value.pagination?.totalCount ?: 0,
-                        (response.value.pagination?.offset ?: 0) - 2 * PAGE_SIZE,
-                        (response.value.pagination?.offset ?: 0) + 20
+                        response.value.pagination.offset,
+                        response.value.pagination.totalCount,
+                        response.value.pagination.offset - PAGE_SIZE,
+                        response.value.pagination.offset + PAGE_SIZE
                     )
                 }
                 is Answer.Error -> Unit
@@ -38,7 +36,7 @@ class GifsDataSource(
                 is Answer.Success -> {
                     callback.onResult(
                         response.value.data.orEmpty(),
-                        (response.value.pagination?.offset ?: 0) + 20
+                        response.value.pagination.offset + PAGE_SIZE
                     )
                 }
                 is Answer.Error -> Unit
