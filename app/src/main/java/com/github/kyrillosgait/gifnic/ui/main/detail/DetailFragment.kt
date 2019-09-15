@@ -32,7 +32,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
 
     private fun initImage() {
-        detailAnimatedImageView.loadWebp(url = safeArgs.gif.images.fixedHeight.webp)
+        detailAnimatedImageView.loadWebp(url = safeArgs.gif.images.fixedWidth.webp)
 
         viewModel.randomGif.observe(this, Observer {
             when (it) {
