@@ -2,6 +2,7 @@ package com.github.kyrillosgait.gifnic.ui.common
 
 import android.app.Activity
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 fun Fragment.setLightStatusBar() {
@@ -14,4 +15,8 @@ fun Activity.setLightStatusBar() {
 
 fun Fragment.setDarkStatusBar() {
     activity?.window?.decorView?.systemUiVisibility = 0
+}
+
+fun Fragment.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), message, duration).show()
 }
