@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
@@ -28,7 +27,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     private val activityViewModel by activityViewModel { mainViewModel }
 
     private lateinit var gifsAdapter: GifsAdapter
-    private lateinit var gifsLayoutManager: GridLayoutManager
+    private lateinit var gifsLayoutManager: StaggeredGridLayoutManager
 
     // endregion
 
@@ -55,9 +54,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     // endregion
 
     private fun initRecyclerView() {
-        val testLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-
-        gifsLayoutManager = GridLayoutManager(requireContext(), 2)
+        gifsLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         val onGifClicked: (Gif) -> Unit = {
             findNavController().navigate(
@@ -65,11 +62,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
             )
         }
 
-        val onGifLongClicked: (Gif) -> Unit = {
-            findNavController().navigate(
-                TrendingFragmentDirections.actionTrendingFragmentToPreviewDialogFragment(gif = it)
-            )
-        }
+        val onGifLongClicked: (Gif) -> Unit = {}
 
         gifsAdapter = GifsAdapter(
             { onGifClicked(it) },
@@ -78,8 +71,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
         gifsRecyclerView.apply {
             adapter = gifsAdapter
-            layoutManager = testLayoutManager
-            itemAnimator = null
+            layoutManager = gifsLayoutManager
         }
 
         activityViewModel.gifs.observe {

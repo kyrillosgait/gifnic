@@ -17,6 +17,11 @@ android {
         multiDexEnabled true
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            testCoverageEnabled true
+            useProguard false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -82,6 +87,9 @@ dependencies {
 
     // Pandora
     debugImplementation 'com.github.whataa:pandora:androidx_v2.0.5'
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
 }
 
 // Android Jetpack
