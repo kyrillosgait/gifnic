@@ -9,15 +9,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
+import com.github.kyrillosgait.gifnic.data.remote.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.loadWebp
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_gif.*
 
 class GifsAdapter(
-    private val clickListener: (Gif) -> Unit,
-    private val longClickListener: (Gif) -> Unit
+    private val clickListener: (Gif) -> Unit
 ) : PagedListAdapter<Gif, GifsAdapter.ViewHolder>(GifDiffCallback()) {
+
+    var dataMode: DataMode = DataMode.WIFI
 
     private val set = ConstraintSet()
 
@@ -42,7 +44,11 @@ class GifsAdapter(
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(gif: Gif, clickListener: (Gif) -> Unit) {
-            val image = gif.images.fixedWidthDownscaled
+            val image = when (dataMode) {
+                DataMode.WIFI -> gif.images.fixedWidth
+                DataMode.MOBILE_DATA -> gif.images.fixedWidthDownsampled
+            }
+
             val ratio = "${image.width}:${image.height}"
 
             set.apply {
