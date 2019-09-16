@@ -13,10 +13,6 @@ import javax.inject.Inject
 @UnstableDefault
 class GiphyRepository @Inject constructor(private val api: Api) : GifRepository {
 
-    override suspend fun getTrending(): Answer<List<Gif>, String> = requestAnswer {
-        api.getTrending()
-    }
-
     override suspend fun getTrendingPaginated(offset: Int): Answer<GiphyResponse<List<Gif>>, String> =
         requestAnswerPaginated {
             api.getTrending(offset = offset.toString())

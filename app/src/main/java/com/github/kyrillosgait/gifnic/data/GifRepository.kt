@@ -16,8 +16,6 @@ interface GifRepository {
      * - an [Answer.Success] containing a list of GIFs, or
      * - an [Answer.Error] containing an error message.
      */
-    suspend fun getTrending(): Answer<List<Gif>, String>
-
     suspend fun getTrendingPaginated(offset: Int): Answer<GiphyResponse<List<Gif>>, String>
 
     /**
