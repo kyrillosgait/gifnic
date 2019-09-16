@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 /**
- * Loads an image from a url into the [ImageView].
+ * Loads a GIF image from a url into the [ImageView].
  */
 fun ImageView.loadGif(
     url: String,
@@ -19,7 +19,7 @@ fun ImageView.loadGif(
 }
 
 /**
- * Loads an image from a url into the [ImageView].
+ * Loads a WEBP image from a url into the [ImageView].
  */
 fun ImageView.loadWebp(
     url: String,
@@ -27,6 +27,7 @@ fun ImageView.loadWebp(
 ) {
     Glide.with(context)
         .load(url)
+        .diskCacheStrategy(diskCacheStrategy)
         .into(this)
 }
 

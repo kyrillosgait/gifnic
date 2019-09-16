@@ -7,11 +7,11 @@ import dagger.Module
 import kotlinx.serialization.UnstableDefault
 
 /**
- * A [Module] that provides repository implementation.
+ * A [Module] which provides the implementation of each repository.
  */
-@Module @UnstableDefault
+@Module
 interface RepositoryModule {
 
-    @Binds
+    @Binds @UnstableDefault
     fun bindGifRepository(repo: GiphyRepository): GifRepository
 }

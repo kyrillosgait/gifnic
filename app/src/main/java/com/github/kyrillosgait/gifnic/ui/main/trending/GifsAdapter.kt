@@ -19,9 +19,9 @@ class GifsAdapter(
     private val clickListener: (Gif) -> Unit
 ) : PagedListAdapter<Gif, GifsAdapter.ViewHolder>(GifDiffCallback()) {
 
-    var dataMode: DataMode = DataMode.WIFI
-
     private val set = ConstraintSet()
+
+    var dataMode: DataMode = DataMode.WIFI
 
     // region Adapter
 
@@ -45,12 +45,16 @@ class GifsAdapter(
 
         fun bind(gif: Gif, clickListener: (Gif) -> Unit) {
             val image = when (dataMode) {
+                // Use the fixed width GIF if running on WiFi
                 DataMode.WIFI -> gif.images.fixedWidth
+                // Use the downsampled fixed width GIF if running on mobile data
                 DataMode.MOBILE_DATA -> gif.images.fixedWidthDownsampled
             }
 
+            // Calculate the image ratio
             val ratio = "${image.width}:${image.height}"
 
+            // Set it to the layout to avoid surprises in the staggered grid layout manager
             set.apply {
                 clone(gifConstraintLayout)
                 setDimensionRatio(gifImageView.id, ratio)

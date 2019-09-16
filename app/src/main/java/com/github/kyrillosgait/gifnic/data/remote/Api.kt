@@ -6,15 +6,16 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 ;
 
+// region Constants
 const val BASE_URl = "https://api.giphy.com/v1/"
 
 private const val GIFS_TRENDING = "gifs/trending"
 private const val GIFS_RANDOM = "gifs/random"
-
 private const val API_KEY = "dc6zaTOxFJmzC"
+// endregion
 
 /**
- * Interface to define REST API calls.
+ * Interface to define GIPHY api calls.
  */
 interface Api {
 

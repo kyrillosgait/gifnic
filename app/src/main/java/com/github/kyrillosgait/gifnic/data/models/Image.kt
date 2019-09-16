@@ -4,6 +4,10 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
 
+/**
+ * Contains [Gif]'s url, width, height and size information. In a few types of [Images], it also
+ * contains webp url.
+ */
 @Serializable @Parcelize
 data class Image(
     val url: String = "",

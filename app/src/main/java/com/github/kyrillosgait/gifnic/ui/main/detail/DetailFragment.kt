@@ -12,12 +12,13 @@ import com.github.kyrillosgait.gifnic.ui.common.loadWebp
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 /**
- * A simple [Fragment] subclass.
+ * A [Fragment] that shows the detail view of one of the trending GIFs.
+ *
+ * A new, random GIF is shown every 10 seconds.
  */
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private val safeArgs: DetailFragmentArgs by navArgs()
-
     private val viewModel by viewModel { detailViewModel }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,10 +30,10 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun initToolbar() {
         detailToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
+        detailToolbar.title = safeArgs.gif.title
     }
 
     private fun initImage() {
-        detailToolbar.title = safeArgs.gif.title
         detailAnimatedImageView.loadWebp(url = safeArgs.gif.images.fixedWidth.webp)
 
         viewModel.randomGif.observe(this, Observer {

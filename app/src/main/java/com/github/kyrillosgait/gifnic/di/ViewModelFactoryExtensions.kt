@@ -12,11 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Provider
 
 /**
- * The following extension functions enable us to lazy initialize the viewModel in an activity or
- * in a fragment in one line, using by viewModels() Kotlin property delegate
- * provided by activity-ktx/fragment-ktx.
+ * Returns a [Lazy] delegate to access activity's ViewModel, provided by Dagger 2.
+ *
+ * ```
+ * class MyActivity : Activity() {
+ *     val viewModel by viewModel { myActivityViewModel }
+ * }
+ * ```
  */
-
 inline fun <reified T : ViewModel> FragmentActivity.viewModel(
     crossinline provider: KnownViewModels.() -> Provider<T>
 ) = viewModels<T> {
@@ -26,6 +29,15 @@ inline fun <reified T : ViewModel> FragmentActivity.viewModel(
     }
 }
 
+/**
+ * Returns a [Lazy] delegate to access the ViewModel from a fragment, provided by Dagger 2.
+ *
+ * ```
+ * class MyFragment : Fragment() {
+ *     val viewModel by viewModel { myFragmentViewModel }
+ * }
+ * ```
+ */
 inline fun <reified T : ViewModel> Fragment.viewModel(
     crossinline provider: KnownViewModels.() -> Provider<T>
 ) = viewModels<T> {
@@ -35,6 +47,15 @@ inline fun <reified T : ViewModel> Fragment.viewModel(
     }
 }
 
+/**
+ * Returns a [Lazy] delegate to access an activity's ViewModel from a fragment, provided by Dagger 2.
+ *
+ * ```
+ * class MyFragment : Fragment() {
+ *     val activityViewModel by activityViewModel { myActivityViewModel }
+ * }
+ * ```
+ */
 inline fun <reified T : ViewModel> Fragment.activityViewModel(
     crossinline provider: KnownViewModels.() -> Provider<T>
 ) = activityViewModels<T> {

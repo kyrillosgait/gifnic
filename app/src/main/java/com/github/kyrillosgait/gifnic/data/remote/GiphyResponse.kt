@@ -5,7 +5,7 @@ import com.github.kyrillosgait.gifnic.data.models.Pagination
 import kotlinx.serialization.Serializable
 
 /**
- * Successful response from GIPHY API.
+ * Successful response from GIPHY [Api].
  */
 @Serializable
 data class GiphyResponse<T>(

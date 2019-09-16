@@ -18,14 +18,14 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 /**
- * A [Module] that provides the [Api].
+ * A [Module] that provides the [Api] dependencies.
  */
 @Module
 object NetworkModule {
 
     @Named("BASE_URL")
     @Provides @JvmStatic @Singleton
-    internal fun providesBaseUrl(): String = BASE_URl
+    internal fun provideBaseUrl(): String = BASE_URl
 
     @Provides @JvmStatic @Singleton
     internal fun provideOkHttpCache(application: Application): Cache {
@@ -62,5 +62,5 @@ object NetworkModule {
     }
 
     @Provides @JvmStatic @Singleton
-    internal fun providesApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
+    internal fun provideApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
 }

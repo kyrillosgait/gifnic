@@ -28,6 +28,7 @@ fun View.gone() {
  * Doesn't let a [View] be clicked more than once every [debounceTime] ms.
  *
  * @param debounceTime the minimum time allowed between two consecutive clicks.
+ * @param onViewClicked the lambda to be executed when onClick is triggered.
  */
 inline fun View.onClick(
     debounceTime: Long = 667L,

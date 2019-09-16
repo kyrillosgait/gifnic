@@ -5,7 +5,7 @@ package com.github.kyrillosgait.gifnic.data.remote
  * values rather than thrown exceptions.
  *
  *  [Answer] results in either:
- *  - [Answer.Success] (successful state with value) or,
+ *  - [Answer.Success], a successful state with value or,
  *  - [Answer.Error] with an error value.
  */
 sealed class Answer<T, E> {

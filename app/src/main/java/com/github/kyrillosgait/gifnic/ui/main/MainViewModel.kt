@@ -15,12 +15,16 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.UnstableDefault
 import javax.inject.Inject
 
+/**
+ * A [ViewModel] to be used with [TrendingFragment]. It's scoped to [MainActivity], to keep the GIFs
+ * in memory when going from Trending to Detail and back to Trending.
+ */
 @UnstableDefault
-class MainViewModel @Inject constructor(private val repository: GifRepository) : ViewModel() {
+class MainViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
 
     private val _gifs = StatefulLiveData<PagedList<Gif>, String>()
 
-    /** A list of trending gifs */
+    /** An endless list of trending GIFs. */
     val gifs = _gifs.asLiveData()
 
     init {
@@ -33,8 +37,8 @@ class MainViewModel @Inject constructor(private val repository: GifRepository) :
         )
 
         val gifsPagedList = PagedList.Builder(GifsDataSource(repository), myPagingConfig)
-            .setFetchExecutor { it.run() }
             .setNotifyExecutor { runBlocking(Dispatchers.Main) { it.run() } }
+            .setFetchExecutor { it.run() }
             .build()
 
         viewModelScope.launch {
@@ -42,12 +46,4 @@ class MainViewModel @Inject constructor(private val repository: GifRepository) :
             _gifs.postSuccess(gifsPagedList)
         }
     }
-
-/*    private suspend fun loadGifs() {
-        _gifs.postLoading()
-        when (val answer = repository.getTrending()) {
-            is Answer.Success -> _gifs.postSuccess(answer.value)
-            is Answer.Error -> _gifs.postError("Generic error")
-        }
-    }*/
 }

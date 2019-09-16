@@ -10,10 +10,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * A [ViewModel] to be used with [DetailFragment]. It loads a new GIF every 10 seconds.
+ */
 class DetailViewModel @Inject constructor(private val repository: GifRepository) : ViewModel() {
 
     private val _randomGif = StatefulLiveData<Gif, String>()
 
+    /** A random GIF. */
     val randomGif = _randomGif.asLiveData()
 
     init {
@@ -22,6 +26,9 @@ class DetailViewModel @Inject constructor(private val repository: GifRepository)
         }
     }
 
+    /**
+     * Fetches a new random GIF every 10 seconds.
+     */
     private suspend fun loadRandomGif() {
         delay(10_000)
         when (val answer = repository.getRandom()) {
