@@ -10,10 +10,10 @@ import kotlinx.serialization.Serializable
  */
 @Serializable @Parcelize
 data class Images(
-    @SerialName("fixed_height_still") val fixedHeightStill: Image,
-    @SerialName("fixed_height") val fixedHeight: Image,
-    @SerialName("fixed_height_downsampled") val fixedHeightDownsampled: Image,
-    @SerialName("fixed_width_still") val fixedWidthStill: Image,
-    @SerialName("fixed_width") val fixedWidth: Image,
-    @SerialName("fixed_width_downsampled") val fixedWidthDownsampled: Image
+    @SerialName("fixed_height_still") val fixedHeightStill: Image = Image(),
+    @SerialName("fixed_height") val fixedHeight: Image = Image(),
+    @SerialName("fixed_height_downsampled") val fixedHeightDownsampled: Image = Image(),
+    @SerialName("fixed_width_still") val fixedWidthStill: Image = Image(),
+    @SerialName("fixed_width") val fixedWidth: Image = Image(),
+    @SerialName("fixed_width_downsampled") val fixedWidthDownsampled: Image = Image()
 ) : Parcelable
