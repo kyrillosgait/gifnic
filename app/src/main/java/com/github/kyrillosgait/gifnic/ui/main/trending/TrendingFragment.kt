@@ -20,7 +20,6 @@ import com.github.kyrillosgait.gifnic.di.activityViewModel
 import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.gone
 import com.github.kyrillosgait.gifnic.ui.common.onClick
-import com.github.kyrillosgait.gifnic.ui.common.showToast
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_trending.*
 
@@ -40,18 +39,17 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     private val networkCallback by lazy {
         object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
-                gifsAdapter.dataMode = dataMode(connectivityManager)
+                if (gifsAdapter.dataMode != dataMode(connectivityManager)) {
+                    gifsAdapter.dataMode = dataMode(connectivityManager)
+                }
             }
         }
     }
 
-    private lateinit var gifsAdapter: GifsAdapter
-    private lateinit var gifsLayoutManager: StaggeredGridLayoutManager
-
     private val dataMode: (ConnectivityManager) -> DataMode = { cm ->
         when (isActiveNetworkMetered(cm)) {
-            true -> DataMode.MOBILE_DATA.also { showToast("Running on Mobile Data") }
-            false -> DataMode.WIFI.also { showToast("Running on WiFi") }
+            true -> DataMode.MOBILE_DATA
+            false -> DataMode.WIFI
         }
     }
 
@@ -64,6 +62,9 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         ).also { activity?.recreate() }
     }
 
+    private lateinit var gifsAdapter: GifsAdapter
+    private lateinit var gifsLayoutManager: StaggeredGridLayoutManager
+
     // endregion
 
     // region Lifecycle
@@ -71,20 +72,20 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initDarkThemeToggle()
+        trendingNightModeToggleIcon.onClick { toggleDarkMode() }
         initRecyclerView()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             connectivityManager.registerDefaultNetworkCallback(networkCallback)
         }
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             connectivityManager.unregisterNetworkCallback(networkCallback)
@@ -94,10 +95,6 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     // endregion
 
     // region Init
-
-    private fun initDarkThemeToggle() {
-        trendingNightModeToggleIcon.onClick { toggleDarkMode }
-    }
 
     private fun initRecyclerView() {
         val onGifClicked: (Gif) -> Unit = {
