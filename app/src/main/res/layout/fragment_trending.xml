@@ -8,6 +8,29 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/trendingToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="24dp"
+        android:background="@null"
+        android:visibility="invisible"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Trending">
+
+        <ImageView
+            android:id="@+id/trendingNightModeToggleIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            app:srcCompat="@drawable/ic_moon" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="48dp"
@@ -46,27 +69,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_gif" />
-
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/trendingToolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="24dp"
-        android:background="@null"
-        app:elevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Trending">
-
-        <ImageView
-            android:id="@+id/trendingNightModeToggleIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/ic_moon" />
-
-    </com.google.android.material.appbar.MaterialToolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
