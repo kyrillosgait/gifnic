@@ -137,16 +137,19 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
             }
         }
 
-        val makeToolbarInvisibleOnScroll: (toolbar: View, recyclerView: RecyclerView) -> Unit =
-            { toolbar, recyclerView ->
+        val makeToolbarInvisibleOnScroll: (View, RecyclerView, StaggeredGridLayoutManager) -> Unit =
+            { toolbar, recyclerView, layoutManager ->
                 recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        if (dy > 0) toolbar.invisible() else toolbar.visible()
+                        val firstVisibleItem =
+                            layoutManager.findFirstCompletelyVisibleItemPositions(null).first()
+
+                        if (firstVisibleItem == 0) toolbar.visible() else toolbar.invisible()
                     }
                 })
             }
 
-        makeToolbarInvisibleOnScroll(trendingToolbar, gifsRecyclerView)
+        makeToolbarInvisibleOnScroll(trendingToolbar, gifsRecyclerView, gifsLayoutManager)
     }
 
     // endregion
