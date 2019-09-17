@@ -6,12 +6,14 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.ConnectivityManagerCompat.isActiveNetworkMetered
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
@@ -19,6 +21,7 @@ import com.github.kyrillosgait.gifnic.data.remote.DataMode
 import com.github.kyrillosgait.gifnic.di.activityViewModel
 import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.gone
+import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_trending.*
@@ -73,6 +76,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         super.onActivityCreated(savedInstanceState)
 
         trendingNightModeToggleIcon.onClick { toggleDarkMode() }
+
         initRecyclerView()
     }
 
@@ -132,6 +136,17 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
                 }
             }
         }
+
+        val makeToolbarInvisibleOnScroll: (toolbar: View, recyclerView: RecyclerView) -> Unit =
+            { toolbar, recyclerView ->
+                recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        if (dy > 0) toolbar.invisible() else toolbar.visible()
+                    }
+                })
+            }
+
+        makeToolbarInvisibleOnScroll(trendingToolbar, gifsRecyclerView)
     }
 
     // endregion
