@@ -11,8 +11,8 @@ android {
         applicationId "com.github.kyrillosgait.gifnic"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 72
-        versionName "0.7.2"
+        versionCode 73
+        versionName "0.7.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
