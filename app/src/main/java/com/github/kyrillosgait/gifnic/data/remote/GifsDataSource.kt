@@ -4,9 +4,11 @@ import androidx.paging.PageKeyedDataSource
 import com.github.kyrillosgait.gifnic.data.GifRepository
 import com.github.kyrillosgait.gifnic.data.models.Gif
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private const val PAGE_SIZE = 20
+private const val RETRY_EVERY_MS = 2_000L
 
 /**
  * Incremental data loader for page-keyed content, where requests return keys for next/previous
@@ -39,7 +41,10 @@ class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSourc
                         response.value.pagination.offset + PAGE_SIZE
                     )
                 }
-                is Answer.Error -> Unit
+                is Answer.Error -> {
+                    delay(RETRY_EVERY_MS)
+                    loadInitial(params, callback)
+                }
             }
         }
     }
@@ -53,7 +58,10 @@ class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSourc
                         response.value.pagination.offset + PAGE_SIZE
                     )
                 }
-                is Answer.Error -> Unit
+                is Answer.Error -> {
+                    delay(RETRY_EVERY_MS)
+                    loadAfter(params, callback)
+                }
             }
         }
     }
