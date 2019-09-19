@@ -1,6 +1,7 @@
 package com.github.kyrillosgait.gifnic.ui.main.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -11,6 +12,7 @@ import com.github.kyrillosgait.gifnic.di.viewModel
 import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.gone
 import com.github.kyrillosgait.gifnic.ui.common.loadWebp
+import com.github.kyrillosgait.gifnic.ui.common.showToast
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_detail.*
 
@@ -44,13 +46,16 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         viewModel.randomGif.observe(this, Observer {
             when (it) {
                 is State.Loading -> detailProgressBar.visible()
-                is State.Empty -> detailProgressBar.gone()
+                is State.Empty -> Unit // Doesn't apply here
                 is State.Success -> {
                     detailToolbar.title = getGifTitle(it.data)
                     detailImageView.loadWebp(url = it.data.images.fixedWidth.webp)
                     detailProgressBar.gone()
                 }
-                is State.Error -> detailProgressBar.gone()
+                is State.Error -> {
+                    showToast(getString(R.string.detail_error), Toast.LENGTH_LONG)
+                    detailProgressBar.gone()
+                }
             }
         })
     }

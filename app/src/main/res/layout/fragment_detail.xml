@@ -6,10 +6,10 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/detailToolbar"
+        style="@style/GifnicToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="24dp"
-        android:background="@null"
+        android:layout_marginTop="@dimen/spacing_large"
         app:contentInsetStart="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
