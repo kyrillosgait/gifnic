@@ -8,7 +8,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private const val PAGE_SIZE = 20
-private const val RETRY_EVERY_MS = 2_000L
 
 /**
  * Incremental data loader for page-keyed content, where requests return keys for next/previous
@@ -26,23 +25,26 @@ private const val RETRY_EVERY_MS = 2_000L
  */
 class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
 
+    /** A lambda that retries to fetch the data after some delay. */
+    private val retryAfterDelay: suspend (Long, () -> Unit) -> Unit = { retryDelay, retryFetch ->
+        delay(retryDelay)
+        retryFetch()
+    }
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Gif>
     ) {
         GlobalScope.launch {
             when (val response = repository.getTrendingPaginated(offset = 0)) {
-                is Answer.Success -> {
-                    callback.onResult(
-                        response.value.data.orEmpty(),
-                        response.value.pagination.offset,
-                        response.value.pagination.totalCount,
-                        null,
-                        response.value.pagination.offset + PAGE_SIZE
-                    )
-                }
-                is Answer.Error -> {
-                    delay(RETRY_EVERY_MS)
+                is Answer.Success -> callback.onResult(
+                    response.value.data.orEmpty(),
+                    response.value.pagination.offset,
+                    response.value.pagination.totalCount,
+                    null,
+                    response.value.pagination.offset + PAGE_SIZE
+                )
+                is Answer.Error -> retryAfterDelay(1_000) {
                     loadInitial(params, callback)
                 }
             }
@@ -52,14 +54,11 @@ class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSourc
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Gif>) {
         GlobalScope.launch {
             when (val response = repository.getTrendingPaginated(offset = params.key)) {
-                is Answer.Success -> {
-                    callback.onResult(
-                        response.value.data.orEmpty(),
-                        response.value.pagination.offset + PAGE_SIZE
-                    )
-                }
-                is Answer.Error -> {
-                    delay(RETRY_EVERY_MS)
+                is Answer.Success -> callback.onResult(
+                    response.value.data.orEmpty(),
+                    response.value.pagination.offset + PAGE_SIZE
+                )
+                is Answer.Error -> retryAfterDelay(2_000) {
                     loadAfter(params, callback)
                 }
             }
