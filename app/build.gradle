@@ -44,6 +44,7 @@ ext {
     pagingVersion = '2.1.0'
 
     // Testing
+    testVersion = '1.2.0'
     jUnit5Version = '5.5.1'
     mockKVersion = '1.9.3'
 }
@@ -109,9 +110,9 @@ dependencies {
 // Test dependencies
 dependencies {
     // Android X Test
-    androidTestImplementation 'androidx.test:core:1.2.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation "androidx.test:rules:1.2.0"
+    androidTestImplementation "androidx.test:core:$testVersion"
+    androidTestImplementation "androidx.test:runner:$testVersion"
+    androidTestImplementation "androidx.test:rules:$testVersion"
 
     // Coroutines
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
