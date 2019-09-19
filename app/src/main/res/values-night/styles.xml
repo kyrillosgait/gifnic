@@ -13,7 +13,7 @@
         <item name="colorError">@color/colorError</item>
         <item name="colorOnError">@color/colorOnError</item>
 
-        <item name="android:navigationBarColor">#B3000000</item>
+        <item name="android:navigationBarColor">@color/colorTransparentBackground</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:splitMotionEvents">false</item>

@@ -12,4 +12,6 @@
     <color name="colorOnBackground">#FFF</color>
     <color name="colorOnSurface">#FFF</color>
     <color name="colorOnError">#000</color>
+    <color name="colorTransparentBackground">#B3000000</color>
+    <color name="colorBackgroundGray">#616161</color>
 </resources>
