@@ -9,7 +9,6 @@ import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.data.remote.GifsDataSource
 import com.github.kyrillosgait.gifnic.ui.common.StatefulLiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.UnstableDefault
@@ -42,7 +41,6 @@ class MainViewModel @Inject constructor(repository: GifRepository) : ViewModel()
             .build()
 
         viewModelScope.launch {
-            delay(1_000)
             _gifs.postSuccess(gifsPagedList)
         }
     }
