@@ -56,15 +56,6 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         }
     }
 
-    private val toggleDarkMode: () -> Unit = {
-        AppCompatDelegate.setDefaultNightMode(
-            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
-                else -> AppCompatDelegate.MODE_NIGHT_NO
-            }
-        ).also { activity?.recreate() }
-    }
-
     private lateinit var gifsAdapter: GifsAdapter
     private lateinit var gifsLayoutManager: StaggeredGridLayoutManager
 
@@ -74,6 +65,15 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val toggleDarkMode: () -> Unit = {
+            AppCompatDelegate.setDefaultNightMode(
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
+                    else -> AppCompatDelegate.MODE_NIGHT_NO
+                }
+            ).also { activity?.recreate() }
+        }
 
         trendingNightModeToggleIcon.onClick { toggleDarkMode() }
 
@@ -121,18 +121,18 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         activityViewModel.gifs.observe {
             when (it) {
                 is State.Loading -> {
-                    progressBar.visible()
+                    trendingProgressBar.visible()
                     errorIcon.gone()
                 }
                 is State.Success -> {
                     gifsAdapter.submitList(it.data)
-                    progressBar.gone()
+                    trendingProgressBar.gone()
                     errorIcon.gone()
                 }
                 is State.Empty -> Unit
                 is State.Error -> {
                     errorIcon.visible()
-                    progressBar.gone()
+                    trendingProgressBar.gone()
                 }
             }
         }

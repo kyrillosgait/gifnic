@@ -9,7 +9,7 @@
     android:clipToPadding="false">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/trendingProgressBar"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:visibility="gone"
