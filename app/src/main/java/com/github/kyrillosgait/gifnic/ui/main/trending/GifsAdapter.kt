@@ -11,6 +11,7 @@ import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.data.remote.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.loadWebp
+import com.github.kyrillosgait.gifnic.ui.common.loadWebpWithPlaceholder
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_gif.*
@@ -61,7 +62,14 @@ class GifsAdapter(
                 applyTo(gifConstraintLayout)
             }
 
-            gifImageView.loadWebp(url = image.webp)
+            when (dataMode) {
+                DataMode.WIFI -> gifImageView.loadWebpWithPlaceholder(
+                    url = image.webp,
+                    placeholder = gif.images.fixedWidthStill.url
+                )
+                DataMode.MOBILE_DATA -> gifImageView.loadWebp(url = image.webp)
+            }
+
             gifImageView.onClick { clickListener(gif) }
         }
     }
