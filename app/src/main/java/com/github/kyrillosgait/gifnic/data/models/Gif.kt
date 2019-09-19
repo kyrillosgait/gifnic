@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 data class Gif(
     val id: String = "",
     val type: String = "",
-    val title: String = "untitled GIF",
+    val title: String = "",
     val rating: String = "",
     val images: Images = Images()
 ) : Parcelable
