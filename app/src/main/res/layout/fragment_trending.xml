@@ -8,28 +8,6 @@
     android:clipChildren="false"
     android:clipToPadding="false">
 
-    <ProgressBar
-        android:id="@+id/trendingProgressBar"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/errorIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:tint="@color/colorError"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_error" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gifsRecyclerView"
         android:layout_width="0dp"
@@ -37,9 +15,9 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingStart="4dp"
+        android:paddingStart="@dimen/spacing_tiny"
         android:paddingTop="80dp"
-        android:paddingEnd="4dp"
+        android:paddingEnd="@dimen/spacing_tiny"
         android:splitMotionEvents="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +27,11 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/trendingToolbar"
+        style="@style/GifnicToolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="24dp"
-        android:background="@null"
+        android:layout_marginTop="@dimen/spacing_large"
         android:visibility="invisible"
-        app:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -65,7 +42,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/spacing_medium"
             app:srcCompat="@drawable/ic_moon" />
 
     </com.google.android.material.appbar.MaterialToolbar>

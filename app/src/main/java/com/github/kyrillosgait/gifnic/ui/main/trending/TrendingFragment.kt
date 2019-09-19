@@ -20,7 +20,6 @@ import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.data.remote.DataMode
 import com.github.kyrillosgait.gifnic.di.activityViewModel
 import com.github.kyrillosgait.gifnic.ui.common.State
-import com.github.kyrillosgait.gifnic.ui.common.gone
 import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import com.github.kyrillosgait.gifnic.ui.common.visible
@@ -120,20 +119,10 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
         activityViewModel.gifs.observe {
             when (it) {
-                is State.Loading -> {
-                    trendingProgressBar.visible()
-                    errorIcon.gone()
-                }
-                is State.Success -> {
-                    gifsAdapter.submitList(it.data)
-                    trendingProgressBar.gone()
-                    errorIcon.gone()
-                }
+                is State.Loading -> Unit
+                is State.Success -> gifsAdapter.submitList(it.data)
                 is State.Empty -> Unit
-                is State.Error -> {
-                    errorIcon.visible()
-                    trendingProgressBar.gone()
-                }
+                is State.Error -> Unit
             }
         }
 
