@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 /**
  * A [ViewModel] to be used with [TrendingFragment]. It's scoped to [MainActivity], to keep the GIFs
- * in memory when going from Trending to Detail and back to Trending.
+ * in memory when going from Trending to Detail and then back to Trending.
  */
 @UnstableDefault
 class MainViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(repository: GifRepository) : ViewModel()
             .build()
 
         viewModelScope.launch {
-            delay(1000)
+            delay(1_000)
             _gifs.postSuccess(gifsPagedList)
         }
     }
