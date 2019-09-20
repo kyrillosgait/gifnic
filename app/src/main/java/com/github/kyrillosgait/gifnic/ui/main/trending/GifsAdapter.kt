@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.data.remote.DataMode
+import com.github.kyrillosgait.gifnic.ui.common.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.loadWebp
 import com.github.kyrillosgait.gifnic.ui.common.loadWebpWithPlaceholder
 import com.github.kyrillosgait.gifnic.ui.common.onClick

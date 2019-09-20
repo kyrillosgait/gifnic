@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.data.remote.DataMode
 import com.github.kyrillosgait.gifnic.di.activityViewModel
+import com.github.kyrillosgait.gifnic.ui.common.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
