@@ -25,10 +25,10 @@ private const val PAGE_SIZE = 20
  */
 class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
 
-    /** A lambda that retries to fetch the data after some delay. */
-    private val retryAfterDelay: suspend (Long, () -> Unit) -> Unit = { retryDelay, retryFetch ->
+    /** Re-tries fetching data after some delay. */
+    private val retryAfter: suspend (Long, () -> Unit) -> Unit = { retryDelay, fetch ->
         delay(retryDelay)
-        retryFetch()
+        fetch()
     }
 
     override fun loadInitial(
@@ -44,7 +44,7 @@ class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSourc
                     null,
                     response.value.pagination.offset + PAGE_SIZE
                 )
-                is Answer.Error -> retryAfterDelay(1_000) {
+                is Answer.Error -> retryAfter(1_000) {
                     loadInitial(params, callback)
                 }
             }
@@ -58,7 +58,7 @@ class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSourc
                     response.value.data.orEmpty(),
                     response.value.pagination.offset + PAGE_SIZE
                 )
-                is Answer.Error -> retryAfterDelay(2_000) {
+                is Answer.Error -> retryAfter(2_000) {
                     loadAfter(params, callback)
                 }
             }
