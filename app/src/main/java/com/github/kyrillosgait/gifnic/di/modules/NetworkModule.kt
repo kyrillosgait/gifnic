@@ -13,7 +13,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import tech.linjiang.pandora.Pandora
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -35,15 +34,12 @@ object NetworkModule {
 
     @Provides @JvmStatic @Singleton
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
-        val pandoraInterceptor = Pandora.get().interceptor
-
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
         return OkHttpClient.Builder()
             .cache(cache)
-            .addInterceptor(pandoraInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
     }
