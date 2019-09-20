@@ -11,8 +11,6 @@ import kotlinx.serialization.Serializable
 @Serializable @Parcelize
 data class Gif(
     val id: String = "",
-    val type: String = "",
     val title: String = "",
-    val rating: String = "",
     val images: Images = Images()
 ) : Parcelable
