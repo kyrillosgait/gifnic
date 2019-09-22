@@ -16,13 +16,14 @@ A minimal, smooth, and easy to use application, that provides:
 - Kotlin
 - Dagger
 - Coroutines
-- Serialization
-- Glide
 - Lifecycle
-- Paging
 - Navigation
+- Serialization
+- Retrofit
+- Paging
 - JUnit
 - MockK
+- Glide
 
 # Architecture
 
@@ -54,3 +55,9 @@ Now the ViewModel should not only post the data there, but also the state. State
 ## Answer
 
 For communication between the ViewModels and the Repository, the Answer sealed class is used. When the ViewModel asks for a list, the Repository tries to get the list, does the error handling, and returns an Answer. The Answer can be either Success, if the api request was successful, or Error, if there was no internet connection, or json parsing failed, or server sent us a lovely 500.
+
+# Screenshots
+![alt text](https://github.com/kyrillosgait/gifnic/blob/master/screenshots/1.png)
+![alt text](https://github.com/kyrillosgait/gifnic/blob/master/screenshots/2.png)
+![alt text](https://github.com/kyrillosgait/gifnic/blob/master/screenshots/3.png)
+![alt text](https://github.com/kyrillosgait/gifnic/blob/master/screenshots/4.png)
