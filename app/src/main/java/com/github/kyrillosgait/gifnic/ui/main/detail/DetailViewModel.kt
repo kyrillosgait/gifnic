@@ -31,11 +31,15 @@ class DetailViewModel @Inject constructor(private val repository: GifRepository)
      */
     private suspend fun loadRandomGif() {
         delay(10_000)
-        _randomGif.postLoading()
-        when (val answer = repository.getRandom()) {
-            is Answer.Success -> _randomGif.postSuccess(answer.value)
-            is Answer.Error -> _randomGif.postError(answer.error)
+
+        if (_randomGif.hasActiveObservers()) {
+            _randomGif.postLoading()
+            when (val answer = repository.getRandom()) {
+                is Answer.Success -> _randomGif.postSuccess(answer.value)
+                is Answer.Error -> _randomGif.postError(answer.error)
+            }
         }
+
         loadRandomGif()
     }
 }
