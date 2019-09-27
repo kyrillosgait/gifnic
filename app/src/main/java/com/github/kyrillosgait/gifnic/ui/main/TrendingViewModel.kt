@@ -12,14 +12,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.UnstableDefault
+import java.util.concurrent.Executor
 import javax.inject.Inject
 
 /**
- * A [ViewModel] to be used with [TrendingFragment]. It's scoped to [MainActivity], to keep the GIFs
- * in memory when going from Trending to Detail and then back to Trending.
+ * A [ViewModel] to be used with [TrendingFragment].
  */
 @UnstableDefault
-class MainViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
+class TrendingViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
 
     private val _gifs = StatefulLiveData<PagedList<Gif>, String>()
 

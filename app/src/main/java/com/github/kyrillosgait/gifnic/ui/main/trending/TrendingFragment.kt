@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.di.activityViewModel
+import com.github.kyrillosgait.gifnic.di.viewModel
 import com.github.kyrillosgait.gifnic.ui.common.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.invisible
@@ -32,7 +32,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
     // region Properties
 
-    private val activityViewModel by activityViewModel { mainViewModel }
+    private val viewModel by viewModel { trendingViewModel }
 
     private val connectivityManager by lazy {
         requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -117,7 +117,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
             layoutManager = gifsLayoutManager
         }
 
-        activityViewModel.gifs.observe {
+        viewModel.gifs.observe {
             when (it) {
                 is State.Loading -> Unit
                 is State.Success -> gifsAdapter.submitList(it.data)
