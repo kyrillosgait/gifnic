@@ -1,4 +1,4 @@
-package com.github.kyrillosgait.gifnic.ui.main
+package com.github.kyrillosgait.gifnic.ui.main.trending
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

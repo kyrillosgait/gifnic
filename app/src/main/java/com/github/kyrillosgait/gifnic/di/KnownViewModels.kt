@@ -1,7 +1,7 @@
 package com.github.kyrillosgait.gifnic.di
 
-import com.github.kyrillosgait.gifnic.ui.main.TrendingViewModel
 import com.github.kyrillosgait.gifnic.ui.main.detail.DetailViewModel
+import com.github.kyrillosgait.gifnic.ui.main.trending.TrendingViewModel
 import kotlinx.serialization.UnstableDefault
 import javax.inject.Inject
 import javax.inject.Provider
