@@ -19,15 +19,16 @@ import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.di.viewModel
 import com.github.kyrillosgait.gifnic.ui.common.DataMode
-import com.github.kyrillosgait.gifnic.ui.common.State
 import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_trending.*
+import kotlinx.serialization.UnstableDefault
 
 /**
  * A simple [Fragment] subclass.
  */
+@UnstableDefault
 class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
     // region Properties
@@ -56,7 +57,6 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     }
 
     private lateinit var gifsAdapter: GifsAdapter
-    private lateinit var gifsLayoutManager: StaggeredGridLayoutManager
 
     // endregion
 
@@ -106,7 +106,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
             )
         }
 
-        gifsLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        val gifsLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         gifsAdapter = GifsAdapter { onGifClicked(it) }.apply {
             dataMode = dataMode(connectivityManager)
@@ -118,12 +118,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         }
 
         viewModel.gifs.observe {
-            when (it) {
-                is State.Loading -> Unit
-                is State.Success -> gifsAdapter.submitList(it.data)
-                is State.Empty -> Unit
-                is State.Error -> Unit
-            }
+            gifsAdapter.submitList(it)
         }
 
         val makeToolbarInvisibleOnScroll: (View, RecyclerView, StaggeredGridLayoutManager) -> Unit =

@@ -1,15 +1,14 @@
 package com.github.kyrillosgait.gifnic.ui.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.paging.Config
 import androidx.paging.PagedList
 import com.github.kyrillosgait.gifnic.data.GifRepository
 import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.data.remote.GifsPagedSource
-import com.github.kyrillosgait.gifnic.ui.common.StatefulLiveData
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.UnstableDefault
 import java.util.concurrent.Executor
@@ -21,10 +20,10 @@ import javax.inject.Inject
 @UnstableDefault
 class TrendingViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
 
-    private val _gifs = StatefulLiveData<PagedList<Gif>, String>()
+    private val _gifs = MutableLiveData<PagedList<Gif>>()
 
     /** An endless list of trending GIFs. */
-    val gifs = _gifs.asLiveData()
+    val gifs: LiveData<PagedList<Gif>> = _gifs
 
     init {
         /**
@@ -53,8 +52,6 @@ class TrendingViewModel @Inject constructor(repository: GifRepository) : ViewMod
             fetchExecutor = Executor { it.run() }
         )
 
-        viewModelScope.launch {
-            _gifs.postSuccess(gifsPagedList)
-        }
+        _gifs.postValue(gifsPagedList)
     }
 }
