@@ -23,7 +23,7 @@ private const val PAGE_SIZE = 20
  * Note: It's not yet Coroutines friendly, but it seems like coroutines support is being added soon:
  * https://android.googlesource.com/platform/frameworks/support/+log/refs/heads/androidx-master-dev/paging/common/src/main/kotlin/androidx/paging
  */
-class GifsDataSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
+class GifsPagedSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
 
     /** Re-tries fetching data after some delay. */
     private val retryAfter: suspend (Long, () -> Unit) -> Unit = { retryDelay, fetch ->

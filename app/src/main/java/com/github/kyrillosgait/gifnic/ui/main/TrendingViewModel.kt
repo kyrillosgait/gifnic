@@ -6,7 +6,7 @@ import androidx.paging.Config
 import androidx.paging.PagedList
 import com.github.kyrillosgait.gifnic.data.GifRepository
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.data.remote.GifsDataSource
+import com.github.kyrillosgait.gifnic.data.remote.GifsPagedSource
 import com.github.kyrillosgait.gifnic.ui.common.StatefulLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,18 +27,31 @@ class TrendingViewModel @Inject constructor(repository: GifRepository) : ViewMod
     val gifs = _gifs.asLiveData()
 
     init {
-        _gifs.postLoading()
-
-        val myPagingConfig = Config(
+        /**
+         * Configure how GifPagedList loads content from the data source.
+         */
+        val pagingConfig = Config(
             pageSize = 20,
             initialLoadSizeHint = 40,
             enablePlaceholders = false
         )
 
-        val gifsPagedList = PagedList.Builder(GifsDataSource(repository), myPagingConfig)
-            .setNotifyExecutor { runBlocking(Dispatchers.Main) { it.run() } }
-            .setFetchExecutor { it.run() }
-            .build()
+        /**
+         * Build the GifPagedList.
+         *
+         * The upcoming version of Paging library, will natively support Coroutines.
+         *
+         * [Dispatchers] will be used instead of [Executor]s, as well as the ability to build a paged
+         * list with a specific coroutine scope. This allows the paged list to suspend or cancel
+         * the loading operations when this coroutine scope is terminated.
+         */
+        val gifsPagedList = PagedList(
+            dataSource = GifsPagedSource(repository),
+            config = pagingConfig,
+            // Use main thread to dispatch paged list updates
+            notifyExecutor = Executor { runBlocking(Dispatchers.Main) { it.run() } },
+            fetchExecutor = Executor { it.run() }
+        )
 
         viewModelScope.launch {
             _gifs.postSuccess(gifsPagedList)
