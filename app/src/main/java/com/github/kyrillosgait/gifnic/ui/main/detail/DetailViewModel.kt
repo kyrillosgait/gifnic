@@ -34,14 +34,15 @@ class DetailViewModel @Inject constructor(private val repository: GifRepository)
      * Fetches a new random GIF every 10 seconds.
      */
     private suspend fun loadRandomGif() {
-        delay(10_000)
+        delay(timeMillis = 10_000)
 
-        // Make sure there is an active observer before loading a new GIF
-        if (_randomGif.hasActiveObservers()) {
-            _randomGif.postLoading()
-            when (val answer = repository.getRandom()) {
-                is Answer.Success -> _randomGif.postSuccess(answer.value)
-                is Answer.Error -> _randomGif.postError(answer.error)
+        with(receiver = _randomGif) {
+            // Make sure there is an active observer before loading a new GIF
+            if (hasActiveObservers()) {
+                when (val answer = repository.getRandom()) {
+                    is Answer.Success -> postSuccess(answer.value)
+                    is Answer.Error -> postError(answer.error)
+                }
             }
         }
 
