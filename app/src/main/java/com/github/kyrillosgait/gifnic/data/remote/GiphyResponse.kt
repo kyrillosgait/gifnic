@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class GiphyResponse<T>(
-    val data: T? = null,
+    override val data: T? = null,
     val pagination: Pagination = Pagination()
-)
+) : ApiResponse<T>

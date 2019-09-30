@@ -16,8 +16,8 @@ const val GENERIC_ERROR = "Something went wrong."
  * - [Answer.Error] with an error message.
  */
 @UnstableDefault
-inline fun <T> requestAnswer(
-    apiRequest: () -> Response<GiphyResponse<T>>
+inline fun <R : ApiResponse<T>, T> requestAnswer(
+    apiRequest: () -> Response<R>
 ): Answer<T, String> {
     try {
         val response = apiRequest()
@@ -47,9 +47,9 @@ inline fun <T> requestAnswer(
  * - [Answer.Error] with an error message.
  */
 @UnstableDefault
-inline fun <T> requestAnswerPaginated(
-    apiRequest: () -> Response<GiphyResponse<T>>
-): Answer<GiphyResponse<T>, String> {
+inline fun <R : ApiResponse<T>, T> requestAnswerPaginated(
+    apiRequest: () -> Response<R>
+): Answer<R, String> {
     try {
         val response = apiRequest()
 
