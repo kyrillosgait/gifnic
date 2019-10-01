@@ -17,16 +17,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val isDarkThemeEnabled: () -> Boolean = {
+        val isDarkThemeEnabled =
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_YES -> true
                 else -> false
             }
-        }
 
         val drawBehindSystemBars: () -> Unit = {
             when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isDarkThemeEnabled() -> {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isDarkThemeEnabled -> {
                     window.decorView.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or

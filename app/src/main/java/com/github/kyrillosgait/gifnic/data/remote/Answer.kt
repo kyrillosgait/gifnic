@@ -27,5 +27,4 @@ sealed class Answer<T, E> {
      * @param error the error.
      */
     class Error<T, E>(val error: E) : Answer<T, E>()
-
 }
