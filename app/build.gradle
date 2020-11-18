@@ -37,6 +37,7 @@ ext {
     daggerVersion = '2.24'
     retrofitVersion = '2.9.0'
     glideVersion = '4.11.0'
+    koinVersion = '2.2.0'
 
     // Jetpack
     lifecycleVersion = '2.2.0'
@@ -66,9 +67,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1'
 
-    // Dagger
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    // Dependency Injection
+    implementation "org.koin:koin-core:$koinVersion"
+    implementation "org.koin:koin-android:$koinVersion"
+    implementation "org.koin:koin-androidx-scope:$koinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -114,6 +117,9 @@ dependencies {
 
     // Coroutines
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+
+    // Koin
+    testImplementation "org.koin:koin-test:$koinVersion"
 
     // Jetpack
     testImplementation 'androidx.arch.core:core-testing:2.1.0'

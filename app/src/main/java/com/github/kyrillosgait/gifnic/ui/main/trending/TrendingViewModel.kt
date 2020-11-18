@@ -11,12 +11,11 @@ import com.github.kyrillosgait.gifnic.data.remote.GifsPagedSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executor
-import javax.inject.Inject
 
 /**
  * A [ViewModel] to be used with [TrendingFragment].
  */
-class TrendingViewModel @Inject constructor(repository: GifRepository) : ViewModel() {
+class TrendingViewModel(repository: GifRepository) : ViewModel() {
 
     private val _gifs = MutableLiveData<PagedList<Gif>>()
 

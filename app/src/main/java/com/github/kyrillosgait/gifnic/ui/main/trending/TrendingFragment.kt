@@ -11,18 +11,17 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.ConnectivityManagerCompat.isActiveNetworkMetered
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.kyrillosgait.gifnic.R
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.di.viewModel
 import com.github.kyrillosgait.gifnic.ui.common.DataMode
 import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_trending.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -31,7 +30,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
     // region Properties
 
-    private val viewModel by viewModel { trendingViewModel }
+    private val viewModel: TrendingViewModel by viewModel()
 
     private val connectivityManager by lazy {
         requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -137,6 +136,6 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
     // endregion
 
     private fun <T> LiveData<T>.observe(consumer: (T) -> Unit) {
-        observe(this@TrendingFragment, Observer { consumer(it) })
+        observe(viewLifecycleOwner, { consumer(it) })
     }
 }

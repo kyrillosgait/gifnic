@@ -8,12 +8,11 @@ import com.github.kyrillosgait.gifnic.data.remote.Answer
 import com.github.kyrillosgait.gifnic.ui.common.StatefulLiveData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * A [ViewModel] to be used with [DetailFragment].
  */
-class DetailViewModel @Inject constructor(private val repository: GifRepository) : ViewModel() {
+class DetailViewModel(private val repository: GifRepository) : ViewModel() {
 
     private val _randomGif = StatefulLiveData<Gif, String>()
 
