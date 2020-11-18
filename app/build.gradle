@@ -20,7 +20,6 @@ android {
         debug {
             minifyEnabled false
             testCoverageEnabled true
-            useProguard false
         }
         release {
             minifyEnabled false
