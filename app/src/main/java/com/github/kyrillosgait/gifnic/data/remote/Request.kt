@@ -1,6 +1,5 @@
 package com.github.kyrillosgait.gifnic.data.remote
 
-import kotlinx.serialization.UnstableDefault
 import retrofit2.Response
 import timber.log.Timber
 
@@ -15,7 +14,6 @@ const val GENERIC_ERROR = "Something went wrong."
  * - [Answer.Success] with the response data, or
  * - [Answer.Error] with an error message.
  */
-@UnstableDefault
 inline fun <R : ApiResponse<T>, T> requestAnswer(
     apiRequest: () -> Response<R>
 ): Answer<T, String> {
@@ -46,7 +44,6 @@ inline fun <R : ApiResponse<T>, T> requestAnswer(
  * - [Answer.Success] with the response data, pagination, and meta, or
  * - [Answer.Error] with an error message.
  */
-@UnstableDefault
 inline fun <R : ApiResponse<T>, T> requestAnswerPaginated(
     apiRequest: () -> Response<R>
 ): Answer<R, String> {

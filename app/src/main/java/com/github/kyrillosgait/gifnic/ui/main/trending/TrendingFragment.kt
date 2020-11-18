@@ -23,12 +23,10 @@ import com.github.kyrillosgait.gifnic.ui.common.invisible
 import com.github.kyrillosgait.gifnic.ui.common.onClick
 import com.github.kyrillosgait.gifnic.ui.common.visible
 import kotlinx.android.synthetic.main.fragment_trending.*
-import kotlinx.serialization.UnstableDefault
 
 /**
  * A simple [Fragment] subclass.
  */
-@UnstableDefault
 class TrendingFragment : Fragment(R.layout.fragment_trending) {
 
     // region Properties

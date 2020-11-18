@@ -6,7 +6,6 @@ import com.github.kyrillosgait.gifnic.di.modules.NetworkModule
 import com.github.kyrillosgait.gifnic.di.modules.RepositoryModule
 import dagger.BindsInstance
 import dagger.Component
-import kotlinx.serialization.UnstableDefault
 import javax.inject.Singleton
 
 @Component(
@@ -15,7 +14,7 @@ import javax.inject.Singleton
         RepositoryModule::class
     ]
 )
-@Singleton @UnstableDefault
+@Singleton
 interface ApplicationComponent {
 
     @Component.Factory

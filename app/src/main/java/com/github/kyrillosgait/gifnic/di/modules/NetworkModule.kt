@@ -6,7 +6,6 @@ import com.github.kyrillosgait.gifnic.data.remote.BASE_URl
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
-import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import okhttp3.Cache
 import okhttp3.MediaType.Companion.toMediaType
@@ -44,16 +43,18 @@ object NetworkModule {
             .build()
     }
 
-    @Provides @JvmStatic @Singleton @UnstableDefault
+    @Provides
+    @JvmStatic
+    @Singleton
     internal fun provideRetrofit(
         okHttpClient: OkHttpClient,
         @Named("BASE_URL") baseUrl: String
     ): Retrofit {
-        val mediaType = "application/json; charset=utf-8".toMediaType()
+        val contentType = "application/json; charset=utf-8".toMediaType()
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
-            .addConverterFactory(Json.nonstrict.asConverterFactory(mediaType))
+            .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(contentType))
             .build()
     }
 

@@ -1,23 +1,15 @@
 package com.github.kyrillosgait.gifnic.data.remote
 
-import com.github.kyrillosgait.gifnic.ANSWER_SHOULD_BE_ERROR
-import com.github.kyrillosgait.gifnic.ANSWER_SHOULD_BE_SUCCESS
-import com.github.kyrillosgait.gifnic.DATA_SHOULD_BE_EQUAL
-import com.github.kyrillosgait.gifnic.DATA_SHOULD_NOT_BE_NULL
-import com.github.kyrillosgait.gifnic.ERROR_SHOULD_BE_EQUAL
+import com.github.kyrillosgait.gifnic.*
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.serialization.UnstableDefault
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import retrofit2.Response
 
-@UnstableDefault
 class RequestTest<T> {
 
     private val response = mockk<Response<GiphyResponse<T>>>()
