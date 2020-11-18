@@ -34,7 +34,7 @@ object NetworkModule {
     @Provides @JvmStatic @Singleton
     internal fun provideOkHttpClient(cache: Cache): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = HttpLoggingInterceptor.Level.BASIC
         }
 
         return OkHttpClient.Builder()
