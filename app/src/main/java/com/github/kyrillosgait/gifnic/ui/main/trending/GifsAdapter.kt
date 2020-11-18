@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.kyrillosgait.gifnic.R
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_gif.*
 
 class GifsAdapter(
     private val clickListener: (Gif) -> Unit
-) : PagedListAdapter<Gif, GifsAdapter.ViewHolder>(GifDiffCallback()) {
+) : PagingDataAdapter<Gif, GifsAdapter.ViewHolder>(GifDiffCallback()) {
 
     private val set = ConstraintSet()
 

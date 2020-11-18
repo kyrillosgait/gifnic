@@ -115,7 +115,7 @@ class TrendingFragment : Fragment(R.layout.fragment_trending) {
         }
 
         viewModel.gifs.observe {
-            gifsAdapter.submitList(it)
+            gifsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
         val makeToolbarInvisibleOnScroll: (View, RecyclerView, StaggeredGridLayoutManager) -> Unit =

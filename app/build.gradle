@@ -44,7 +44,7 @@ ext {
 
     // Jetpack
     lifecycleVersion = '2.2.0'
-    pagingVersion = '2.1.2'
+    pagingVersion = '3.0.0-alpha09'
 
     // Testing
     testVersion = '1.3.0'

@@ -1,13 +1,12 @@
 package com.github.kyrillosgait.gifnic.data.remote
 
-import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagingSource
 import com.github.kyrillosgait.gifnic.data.GifRepository
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 private const val PAGE_SIZE = 20
+private const val RETRY_IN_MS = 10_000L
 
 /**
  * Incremental data loader for page-keyed content, where requests return keys for next/previous
@@ -23,49 +22,21 @@ private const val PAGE_SIZE = 20
  * Note: It's not yet Coroutines friendly, but it seems like coroutines support is being added soon:
  * https://android.googlesource.com/platform/frameworks/support/+log/refs/heads/androidx-master-dev/paging/common/src/main/kotlin/androidx/paging
  */
-class GifsPagedSource(private val repository: GifRepository) : PageKeyedDataSource<Int, Gif>() {
+class GifsPagedSource(private val repository: GifRepository) : PagingSource<Int, Gif>() {
 
-    /** Re-tries fetching data after some delay. */
-    private val retryAfter: suspend (Long, () -> Unit) -> Unit = { retryDelay, fetch ->
-        delay(retryDelay)
-        fetch()
-    }
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Gif> {
+        val offset = params.key ?: 0
 
-    override fun loadInitial(
-        params: LoadInitialParams<Int>,
-        callback: LoadInitialCallback<Int, Gif>
-    ) {
-        GlobalScope.launch {
-            when (val response = repository.getTrendingPaginated(offset = 0)) {
-                is Answer.Success -> callback.onResult(
-                    response.value.data.orEmpty(),
-                    response.value.pagination.offset,
-                    response.value.pagination.totalCount,
-                    null,
-                    response.value.pagination.offset + PAGE_SIZE
-                )
-                is Answer.Error -> retryAfter(1_000) {
-                    loadInitial(params, callback)
-                }
+        return when (val response = repository.getTrendingPaginated(offset = offset)) {
+            is Answer.Success -> LoadResult.Page(
+                data = response.value.data.orEmpty(),
+                prevKey = null,
+                nextKey = response.value.pagination.offset + PAGE_SIZE
+            )
+            is Answer.Error -> {
+                delay(RETRY_IN_MS)
+                load(params)
             }
         }
-    }
-
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Gif>) {
-        GlobalScope.launch {
-            when (val response = repository.getTrendingPaginated(offset = params.key)) {
-                is Answer.Success -> callback.onResult(
-                    response.value.data.orEmpty(),
-                    response.value.pagination.offset + PAGE_SIZE
-                )
-                is Answer.Error -> retryAfter(2_000) {
-                    loadAfter(params, callback)
-                }
-            }
-        }
-    }
-
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Gif>) {
-        // This doesn't make sense as the offset start from 0 and there are no negative offsets.
     }
 }
