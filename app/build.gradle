@@ -27,9 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 ext {
@@ -38,6 +40,7 @@ ext {
     retrofitVersion = '2.9.0'
     glideVersion = '4.11.0'
     koinVersion = '2.2.0'
+    chuckerInterceptorVersion = '3.4.0'
 
     // Jetpack
     lifecycleVersion = '2.2.0'
@@ -73,22 +76,22 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
 
-    // Retrofit
+    // Network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation 'com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    debugImplementation "com.github.chuckerteam.chucker:library:$chuckerInterceptorVersion"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:$chuckerInterceptorVersion"
 
-    // Glide
+    // Image Loading
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation "com.zlc.glide:webpdecoder:2.0.$glideVersion"
 
-    // Timber
+    // Logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // OkHttp interceptor
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-
-    // LeakCanary
+    // Debugging
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
 }
 
@@ -141,11 +144,5 @@ kapt {
     useBuildCache = true // Gradle build cache support (since 1.2.20)
     javacOptions {
         option("-Xmaxerrs", 500) // Increase the max count of errors from annotation processors.
-    }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 }

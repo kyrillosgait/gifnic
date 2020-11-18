@@ -1,6 +1,7 @@
 package com.github.kyrillosgait.gifnic.di
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.github.kyrillosgait.gifnic.data.remote.Api
 import com.github.kyrillosgait.gifnic.data.remote.BASE_URl
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -17,7 +18,7 @@ import retrofit2.Retrofit
 
 private const val CACHE_SIZE = 10 * 1024 * 1024
 
-private enum class Interceptors { LOGGING }
+private enum class Interceptors { LOGGING, CHUCKER }
 
 val networkModule = module {
 
@@ -25,7 +26,14 @@ val networkModule = module {
 
     single(named(Interceptors.LOGGING.name)) { provideHttpLoggingInterceptor() }
 
-    single { provideOkHttpClient(get(named(Interceptors.LOGGING.name))) }
+    single(named(Interceptors.CHUCKER.name)) { provideChuckerInterceptor(get()) }
+
+    single {
+        provideOkHttpClient(
+            httpLoggingInterceptor = get(named(Interceptors.LOGGING.name)),
+            chuckerInterceptor = get(named(Interceptors.CHUCKER.name))
+        )
+    }
 
     single { provideConverterFactory() }
 
@@ -44,9 +52,18 @@ private fun provideHttpLoggingInterceptor(): Interceptor {
     }
 }
 
-private fun provideOkHttpClient(httpLoggingInterceptor: Interceptor): OkHttpClient {
+private fun provideChuckerInterceptor(context: Context): Interceptor {
+    val chuckerInterceptorBuilder = ChuckerInterceptor.Builder(context)
+    return chuckerInterceptorBuilder.build()
+}
+
+private fun provideOkHttpClient(
+    httpLoggingInterceptor: Interceptor,
+    chuckerInterceptor: Interceptor
+): OkHttpClient {
     val okHttpClientBuilder = OkHttpClient.Builder()
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(chuckerInterceptor)
 
     return okHttpClientBuilder.build()
 }
