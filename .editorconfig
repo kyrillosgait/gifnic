@@ -51,6 +51,11 @@ ij_kotlin_space_before_lambda_arrow = true
 
 
 ## Wrapping and braces
+## Wrap info:
+# Do not wrap = off
+# Wrap if long = normal
+# Chop down if long = on_every_item
+# Wrap always = split_into_lines
 
 # Hand wrap at
 max_line_length = 160
