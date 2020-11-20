@@ -12,6 +12,9 @@ ij_smart_tabs = false
 
 
 [{*.kt, *.kts}]
+## Ktlint
+disabled_rules = import-ordering
+
 ## Tabs and indents
 tab_width = 4
 indent_size = 4
