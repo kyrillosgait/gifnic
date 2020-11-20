@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !isDarkThemeEnabled -> {
                     window.decorView.systemUiVisibility =
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                                View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
                 }
                 else -> {
                     window.decorView.systemUiVisibility =

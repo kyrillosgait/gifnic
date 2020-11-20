@@ -2,7 +2,11 @@ package com.github.kyrillosgait.gifnic.data.repositories
 
 import com.github.kyrillosgait.gifnic.data.GifRepository
 import com.github.kyrillosgait.gifnic.data.models.Gif
-import com.github.kyrillosgait.gifnic.data.remote.*
+import com.github.kyrillosgait.gifnic.data.remote.Answer
+import com.github.kyrillosgait.gifnic.data.remote.Api
+import com.github.kyrillosgait.gifnic.data.remote.GiphyResponse
+import com.github.kyrillosgait.gifnic.data.remote.requestAnswer
+import com.github.kyrillosgait.gifnic.data.remote.requestAnswerPaginated
 
 class GiphyRepository(private val api: Api) : GifRepository {
 

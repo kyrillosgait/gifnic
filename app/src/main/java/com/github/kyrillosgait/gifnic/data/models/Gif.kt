@@ -8,7 +8,8 @@ import kotlinx.serialization.Serializable
  * Contains a variety of information, such as the [Images],
  * which itself includes the URLS for multiple different GIFS formats and sizes.
  */
-@Serializable @Parcelize
+@Serializable
+@Parcelize
 data class Gif(
     val id: String = "",
     val title: String = "",

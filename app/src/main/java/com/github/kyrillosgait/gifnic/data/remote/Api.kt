@@ -4,7 +4,6 @@ import com.github.kyrillosgait.gifnic.data.models.Gif
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-;
 
 // region Constants
 const val BASE_URl = "https://api.giphy.com/v1/"

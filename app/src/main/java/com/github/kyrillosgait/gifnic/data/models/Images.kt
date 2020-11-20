@@ -8,7 +8,8 @@ import kotlinx.serialization.Serializable
 /**
  * Contains alternate copies of the GIF in a variety of resolutions and formats.
  */
-@Serializable @Parcelize
+@Serializable
+@Parcelize
 data class Images(
     @SerialName("fixed_width_still") val fixedWidthStill: Image = Image(),
     @SerialName("fixed_width") val fixedWidth: Image = Image(),
