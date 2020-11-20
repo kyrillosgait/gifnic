@@ -3,95 +3,179 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
-indent_size = 4
 indent_style = space
 insert_final_newline = true
-max_line_length = 160
-tab_width = 4
-ij_continuation_indent_size = 8
 ij_formatter_off_tag = @formatter:off
 ij_formatter_on_tag = @formatter:on
 ij_formatter_tags_enabled = true
 ij_smart_tabs = false
-ij_wrap_on_typing = false
+
 
 [{*.kt, *.kts}]
+## Tabs and indents
+tab_width = 4
+indent_size = 4
 ij_continuation_indent_size = 4
-ij_kotlin_align_in_columns_case_branch = false
-ij_kotlin_align_multiline_binary_operation = false
+ij_kotlin_keep_indents_on_empty_lines = false
+
+## Spaces
+
+# Before parenthesis - done
+ij_kotlin_space_before_if_parentheses = true
+ij_kotlin_space_before_for_parentheses = true
+ij_kotlin_space_before_while_parentheses = true
+ij_kotlin_space_before_catch_parentheses = true
+ij_kotlin_space_before_when_parentheses = true
+
+# Around operators - done
+ij_kotlin_spaces_around_assignment_operators = true
+ij_kotlin_spaces_around_logical_operators = true
+ij_kotlin_spaces_around_equality_operators = true
+ij_kotlin_spaces_around_relational_operators = true
+ij_kotlin_spaces_around_additive_operators = true
+ij_kotlin_spaces_around_multiplicative_operators = true
+ij_kotlin_spaces_around_unary_operator = false
+ij_kotlin_spaces_around_range = false
+
+# Other - done
+ij_kotlin_space_before_comma = false
+ij_kotlin_space_after_comma = true
+ij_kotlin_space_before_type_colon = false
+ij_kotlin_space_after_type_colon = true
+ij_kotlin_space_before_extend_colon = true
+ij_kotlin_space_after_extend_colon = true
+ij_kotlin_insert_whitespaces_in_simple_one_line_method = true
+ij_kotlin_spaces_around_function_type_arrow = true
+ij_kotlin_spaces_around_when_arrow = true
+ij_kotlin_space_before_lambda_arrow = true
+
+
+## Wrapping and braces
+
+# Hand wrap at
+max_line_length = 160
+
+# Wrap on typing
+ij_wrap_on_typing = false
+
+# Keep when formatting
+ij_kotlin_keep_line_breaks = true
+ij_kotlin_keep_first_column_comment = true
+
+# Extends/Implements list
+ij_kotlin_extends_list_wrap = normal
 ij_kotlin_align_multiline_extends_list = false
-ij_kotlin_align_multiline_method_parentheses = false
+ij_kotlin_continuation_indent_in_supertype_lists = false
+
+# Function declaration parameters
+ij_kotlin_method_parameters_wrap = on_every_item
 ij_kotlin_align_multiline_parameters = false
+ij_kotlin_method_parameters_new_line_after_left_paren = true
+ij_kotlin_method_parameters_right_paren_on_new_line = true
+ij_kotlin_continuation_indent_in_parameter_lists = false
+
+# Function call arguments
+ij_kotlin_call_parameters_wrap = on_every_item
 ij_kotlin_align_multiline_parameters_in_calls = false
-ij_kotlin_allow_trailing_comma = true
-ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_call_parameters_new_line_after_left_paren = true
+ij_kotlin_call_parameters_right_paren_on_new_line = true
+ij_kotlin_continuation_indent_in_argument_lists = false
+
+# Function parenthesis
+ij_kotlin_align_multiline_method_parentheses = false
+
+# Chained function calls
+ij_kotlin_method_call_chain_wrap = normal
+ij_kotlin_wrap_first_method_in_call_chain = false
+ij_kotlin_continuation_indent_for_chained_calls = false
+
+# If statement
+ij_kotlin_else_on_new_line = false
+ij_kotlin_if_rparen_on_new_line = true
+ij_kotlin_continuation_indent_in_if_conditions = false
+
+# Do while statement
+ij_kotlin_while_on_new_line = false
+
+# Try statement
+ij_kotlin_catch_on_new_line = false
+ij_kotlin_finally_on_new_line = false
+
+# Binary expressions
+ij_kotlin_align_multiline_binary_operation = false
+
+# Assignment statement
 ij_kotlin_assignment_wrap = normal
+
+# Enum constants
+ij_kotlin_enum_constants_wrap = off
+
+# Class annotations
+ij_kotlin_class_annotation_wrap = split_into_lines
+
+# Function annotations
+ij_kotlin_method_annotation_wrap = split_into_lines
+
+# Property annotations
+ij_kotlin_field_annotation_wrap = split_into_lines
+
+# Parameter annotations
+ij_kotlin_parameter_annotation_wrap = off
+
+# Local variable annotations
+ij_kotlin_variable_annotation_wrap = off
+
+# When statements
+ij_kotlin_align_in_columns_case_branch = false
+
+# Braces placement
+ij_kotlin_lbrace_on_next_line = false
+
+# Expression body functions
+ij_kotlin_wrap_expression_body_functions = 1
+ij_kotlin_continuation_indent_for_expression_bodies = false
+
+# Elvis expressions
+ij_kotlin_wrap_elvis_expressions = 1
+ij_kotlin_continuation_indent_in_elvis = false
+
+
+## Blank lines
+
+# Maximum blank lines
+ij_kotlin_keep_blank_lines_in_declarations = 1
+ij_kotlin_keep_blank_lines_in_code = 1
+ij_kotlin_keep_blank_lines_before_right_brace = 0
+
+# Minimum blank lines
 ij_kotlin_blank_lines_after_class_header = 0
 ij_kotlin_blank_lines_around_block_when_branches = 0
 ij_kotlin_blank_lines_before_declaration_with_comment_or_annotation_on_separate_line = 1
-ij_kotlin_block_comment_at_first_column = true
-ij_kotlin_call_parameters_new_line_after_left_paren = true
-ij_kotlin_call_parameters_right_paren_on_new_line = true
-ij_kotlin_call_parameters_wrap = on_every_item
-ij_kotlin_catch_on_new_line = false
-ij_kotlin_class_annotation_wrap = split_into_lines
-ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
-ij_kotlin_continuation_indent_for_chained_calls = false
-ij_kotlin_continuation_indent_for_expression_bodies = false
-ij_kotlin_continuation_indent_in_argument_lists = false
-ij_kotlin_continuation_indent_in_elvis = false
-ij_kotlin_continuation_indent_in_if_conditions = false
-ij_kotlin_continuation_indent_in_parameter_lists = false
-ij_kotlin_continuation_indent_in_supertype_lists = false
-ij_kotlin_else_on_new_line = false
-ij_kotlin_enum_constants_wrap = off
-ij_kotlin_extends_list_wrap = normal
-ij_kotlin_field_annotation_wrap = split_into_lines
-ij_kotlin_finally_on_new_line = false
-ij_kotlin_if_rparen_on_new_line = true
-ij_kotlin_import_nested_classes = false
-ij_kotlin_insert_whitespaces_in_simple_one_line_method = true
-ij_kotlin_keep_blank_lines_before_right_brace = 0
-ij_kotlin_keep_blank_lines_in_code = 1
-ij_kotlin_keep_blank_lines_in_declarations = 1
-ij_kotlin_keep_first_column_comment = true
-ij_kotlin_keep_indents_on_empty_lines = false
-ij_kotlin_keep_line_breaks = true
-ij_kotlin_lbrace_on_next_line = false
-ij_kotlin_line_comment_add_space = true
-ij_kotlin_line_comment_at_first_column = false
-ij_kotlin_method_annotation_wrap = split_into_lines
-ij_kotlin_method_call_chain_wrap = normal
-ij_kotlin_method_parameters_new_line_after_left_paren = true
-ij_kotlin_method_parameters_right_paren_on_new_line = true
-ij_kotlin_method_parameters_wrap = on_every_item
+
+
+## Imports
+# When should use star import
 ij_kotlin_name_count_to_use_star_import = 2147483647
 ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
-ij_kotlin_parameter_annotation_wrap = off
-ij_kotlin_space_after_comma = true
-ij_kotlin_space_after_extend_colon = true
-ij_kotlin_space_after_type_colon = true
-ij_kotlin_space_before_catch_parentheses = true
-ij_kotlin_space_before_comma = false
-ij_kotlin_space_before_extend_colon = true
-ij_kotlin_space_before_for_parentheses = true
-ij_kotlin_space_before_if_parentheses = true
-ij_kotlin_space_before_lambda_arrow = true
-ij_kotlin_space_before_type_colon = false
-ij_kotlin_space_before_when_parentheses = true
-ij_kotlin_space_before_while_parentheses = true
-ij_kotlin_spaces_around_additive_operators = true
-ij_kotlin_spaces_around_assignment_operators = true
-ij_kotlin_spaces_around_equality_operators = true
-ij_kotlin_spaces_around_function_type_arrow = true
-ij_kotlin_spaces_around_logical_operators = true
-ij_kotlin_spaces_around_multiplicative_operators = true
-ij_kotlin_spaces_around_range = false
-ij_kotlin_spaces_around_relational_operators = true
-ij_kotlin_spaces_around_unary_operator = false
-ij_kotlin_spaces_around_when_arrow = true
-ij_kotlin_variable_annotation_wrap = off
-ij_kotlin_while_on_new_line = false
-ij_kotlin_wrap_elvis_expressions = 1
-ij_kotlin_wrap_expression_body_functions = 1
-ij_kotlin_wrap_first_method_in_call_chain = false
+
+# Other
+ij_kotlin_import_nested_classes = false
+
+
+## Other
+
+# Use trailing comma
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = false
+
+
+## Code generation
+
+# Comment code
+ij_kotlin_line_comment_at_first_column = false
+ij_kotlin_line_comment_add_space = true
+ij_kotlin_block_comment_at_first_column = true
+
+
+## Code style defaults
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
