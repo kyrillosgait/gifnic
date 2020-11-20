@@ -38,7 +38,10 @@ interface CoroutineTest {
  *
  */
 @ExperimentalCoroutinesApi
-open class TestCoroutineExtension : TestInstancePostProcessor, BeforeAllCallback, AfterEachCallback,
+open class TestCoroutineExtension :
+    TestInstancePostProcessor,
+    BeforeAllCallback,
+    AfterEachCallback,
     AfterAllCallback {
 
     val dispatcher = TestCoroutineDispatcher()

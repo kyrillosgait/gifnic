@@ -1,7 +1,15 @@
 package com.github.kyrillosgait.gifnic.data.repositories
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import com.github.kyrillosgait.gifnic.*
+import com.github.kyrillosgait.gifnic.ANSWER_SHOULD_BE_ERROR
+import com.github.kyrillosgait.gifnic.ANSWER_SHOULD_BE_SUCCESS
+import com.github.kyrillosgait.gifnic.DATA_SHOULD_BE_EQUAL
+import com.github.kyrillosgait.gifnic.DATA_SHOULD_NOT_BE_NULL
+import com.github.kyrillosgait.gifnic.ERROR_SHOULD_BE_EQUAL
+import com.github.kyrillosgait.gifnic.MESSAGE_SHOULD_NOT_BE_NULL
+import com.github.kyrillosgait.gifnic.OFFSET
+import com.github.kyrillosgait.gifnic.OFFSET_SHOULD_BE_EQUAL
+import com.github.kyrillosgait.gifnic.PAGE_SIZE_SHOULD_BE_EQUAL
 import com.github.kyrillosgait.gifnic.data.models.Gif
 import com.github.kyrillosgait.gifnic.data.models.Pagination
 import com.github.kyrillosgait.gifnic.data.remote.Answer
@@ -14,7 +22,9 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

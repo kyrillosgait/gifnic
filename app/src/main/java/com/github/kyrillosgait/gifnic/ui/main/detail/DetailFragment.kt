@@ -40,7 +40,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         detailToolbar.title = getGifTitle(safeArgs.gif)
         detailImageView.loadWebp(url = safeArgs.gif.images.fixedWidth.webp)
 
-        viewModel.randomGif.observe(viewLifecycleOwner, {
+        viewModel.randomGif.observe(viewLifecycleOwner) {
             when (it) {
                 is State.Loading -> Unit
                 is State.Empty -> Unit // Doesn't apply here
@@ -52,6 +52,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     showToast(getString(R.string.detail_error), Toast.LENGTH_LONG)
                 }
             }
-        })
+        }
     }
 }
